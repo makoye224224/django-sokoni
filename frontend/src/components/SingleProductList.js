@@ -117,11 +117,11 @@ const SingleProductList = ({ prod }) => {
                 </div>
               </section>
               <section>
-                <p className="container">
-                  <p className="container">
+               
+                  <p className="container" style={{height: '45px', overflow: 'hidden'}}>
                     {truncateString(prod && prod.description, 50)}
                   </p>
-                </p>
+              
               </section>
             </a>
             <section>

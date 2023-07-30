@@ -27,6 +27,7 @@ const Checkout = () => {
 
   return (
     <>
+    <Shipping/>
     <div className="text-center">
         <h3>Review Items and Shipping</h3>
         <p>Delivery: July 28 2023 if you order in the next 2hrs</p>
