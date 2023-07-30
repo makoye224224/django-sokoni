@@ -66,7 +66,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-ALLOWED_HOSTS = ["sokoni-django.onrender.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["sokoni-django.onrender.com"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8001",
@@ -212,7 +212,7 @@ LOGGING = {
     "loggers": {
         "": {
             "handlers": ["console", "file"],
-            "level": os.environ.get("DJANGO_LOG_LEVEL", "DANGER"),
+            "level": os.environ.get("DJANGO_LOG_LEVEL", "INFO"),
         }
     },
     "formatters": {
