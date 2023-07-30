@@ -121,13 +121,13 @@ export default function Header() {
   React.useEffect(() => {
     Collections()
       .then((collections) => {
+    
         setCollections(collections);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
   return (
     <Box sx={{ flexGrow: 1, backgroundColor: "#212529" }}>
       <AppBar position="static" sx={{ backgroundColor: "#212529" }}>
@@ -154,7 +154,7 @@ export default function Header() {
         <div style={{ marginTop: "43px" }}>
           <div className="row align-items-center">
             <div className="col">
-              {firstThreeCollections?.map((collection) => (
+              {firstThreeCollections?.length >0 && firstThreeCollections?.map((collection) => (
                 <Link
                   key={collection.id}
                   to="/#"
@@ -173,7 +173,7 @@ export default function Header() {
                 </Link>
               ))}
             </div>
-            {restCollections.length > 0 && (
+            {restCollections?.length > 0 && (
               <div className="col">
                 <NavDropdown title="More Collections" id="collasible-nav-dropdown">
                   {restCollections?.map((collection) => (
@@ -197,7 +197,7 @@ export default function Header() {
         marginRight: "30px",
         marginTop: "40px",
       }}>
-      {collections?.map((collection) => (
+       {collections?.map((collection) => (
         <NavDropdown.Item key={collection.id} href="#action/3.1" onClick={(e) => {
           e.preventDefault();
           ProductsInCollection(collection?.id);
@@ -205,7 +205,7 @@ export default function Header() {
         }}>
           {collection?.title}
         </NavDropdown.Item>
-      ))}
+      ))} 
     </NavDropdown>)}
 
           <Link to="/cart" style={{ textDecoration: "none" }}>

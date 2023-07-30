@@ -204,10 +204,9 @@ const ContextProvider = ({ children }) => {
   const Collections = async () => {
     try {
       const response = await axios.get(`${api_uri}/store/collections/`);
-
       return response.data;
     } catch (error) {
-      console.log(error);
+      
     }
   };
 
