@@ -109,7 +109,7 @@ const ProductList = () => {
           </div>
         </section>
         <br />
-        {products.length > 0 ?
+        {products?.length > 0 ?
         <><section>
             <div>
               <Row>
