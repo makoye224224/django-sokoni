@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
-from celery.schedules import crontab
+from urllib.parse import unquote_plus
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "djoser",
     "silk",
     "playground",
-    "debug_toolbar",
+    # "debug_toolbar",
     "store",
     "tags",
     "likes",
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -66,7 +66,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-ALLOWED_HOSTS = ["sokoni-django.onrender.com"]
+ALLOWED_HOSTS = ["sokoni-django.onrender.com", "127.0.0.1"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8001",
