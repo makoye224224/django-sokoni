@@ -1,7 +1,6 @@
 # urls.py
 
-from django.urls import path
-from django.views.generic import TemplateView
+from django.urls import path, re_path
 from . import views
 
-urlpatterns = [path("", views.render_react_frontend, name="frontend")]
+urlpatterns = [re_path(r"^(?:.*)/?$", views.render_react_frontend, name="frontend")]

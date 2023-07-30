@@ -74,7 +74,7 @@ const ProductList = () => {
                 <CarouselItem>
                   <div style={{ height: "300px", overflow: "hidden" }}>
                     <img
-                      src="https://shorturl.at/anvRS"
+                      src="https://shorturl.at/cR012"
                       className="card-img-top"
                       alt="product photo"
                       loading="lazy"
@@ -85,7 +85,7 @@ const ProductList = () => {
                 <CarouselItem>
                   <div style={{ height: "300px", overflow: "hidden" }}>
                     <img
-                      src="https://rb.gy/gyqgo"
+                      src="https://shorturl.at/dstO1"
                       className="card-img-top"
                       alt="product photo"
                       loading="lazy"
@@ -96,7 +96,7 @@ const ProductList = () => {
                 <CarouselItem>
                   <div style={{ height: "300px", overflow: "hidden" }}>
                     <img
-                      src="https://rb.gy/t1cds"
+                      src="https://shorturl.at/dDELW"
                       className="card-img-top"
                       alt="product photo"
                       loading="lazy"
