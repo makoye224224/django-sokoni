@@ -33,7 +33,7 @@ const Checkout = (props) => {
       await constructCartItem();
 
       // Then proceed to place the order
-     // await PlaceOrder();
+      // await PlaceOrder();
 
       // Now, you can clear the cart or take other actions as needed
       setCart([]); // Clear the cart
@@ -50,8 +50,8 @@ const Checkout = (props) => {
 
   return (
     <>
-    <Shipping/>
-    <div className="text-center">
+      <Shipping />
+      <div className="text-center">
         <h3>Review Items and Shipping</h3>
         <p>Delivery: July 28 2023 if you order in the next 2hrs</p>
       </div>
@@ -66,7 +66,7 @@ const Checkout = (props) => {
                   <div className="row" key={index}>
                     <div className="col-6">
                       <img
-                        src="https://shorturl.at/lpFJW"
+                        src={item?.product?.images[0]?.image || 'https://d3ski4a8qseigv.cloudfront.net/sokoni'}
                         alt="product image"
                         className="img-fluid mb-1"
                         style={{ objectFit: "contain", borderRadius: "0.5rem" }}
@@ -129,7 +129,7 @@ const Checkout = (props) => {
             <MobilePayment />
           )}
         </div>
-       
+
       </div>
 
     </>

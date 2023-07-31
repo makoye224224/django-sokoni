@@ -64,7 +64,7 @@ const BuyNow = () => {
                         <Row>
                           <Col xs={4} md={2}>
                             <Image
-                              src="https://shorturl.at/lpFJW"
+                               src={item?.product?.images[0]?.image || 'https://d3ski4a8qseigv.cloudfront.net/sokoni'}
                               alt={item?.product?.title}
                               fluid
                               rounded />
