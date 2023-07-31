@@ -4,6 +4,11 @@ import axios from 'axios';
 const api_uri = process.env.REACT_APP_API_URL;
 
 const UserProfile = () => {
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
+  
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);

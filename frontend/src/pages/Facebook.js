@@ -5,6 +5,11 @@ import { facebookAuthenticate } from '../store/actions/auth'
 import queryString from 'query-string';
 
 const Facebook = ({ facebookAuthenticate }) => {
+    useEffect(() => {
+        // Scroll to the top of the page after the route change
+        window.scrollTo(0, 0);
+      }, []);
+      
     let location = useLocation();
 
     useEffect(() => {

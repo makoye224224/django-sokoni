@@ -13,7 +13,12 @@ const SingleProductList = ({ prod }) => {
   } = useStateContext();
 
   const handleBuyNowClick = () => {
-    handleAddTocart()
+    const isProductInCart = cart.some((item) => item?.product?.id == prod.id);
+    console.log(isProductInCart)
+    if (!isProductInCart) {
+      handleAddTocart();
+    }
+  
     history.push(`/buynow/${prod.id}`);
   };
 
@@ -37,6 +42,11 @@ const SingleProductList = ({ prod }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
 
 
   return (

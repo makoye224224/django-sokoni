@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../store/actions/auth';
@@ -9,6 +9,12 @@ import { useStateContext } from "../context/Context";
 const api_uri = process.env.REACT_APP_API_URL;
 
 const Login = ({ login, isAuthenticated }) => {
+
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
+
   const {
 
   } = useStateContext();

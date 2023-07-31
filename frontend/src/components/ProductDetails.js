@@ -11,13 +11,7 @@ import { useStateContext } from "../context/Context";
 const ProductDetails = () => {
   const { productId } = useParams();
   const {
-    products,
-    searchQuery,
-    setSearchQuery,
-    cartItem,
-    setCartItem,
     cart,
-    MyCart,
     addToCart,
     removeItemFromCart,
     OneProduct,
@@ -40,12 +34,6 @@ const ProductDetails = () => {
     getProduct();
   }, [productId]);
 
-  
-  const handleBuyNowClick = () => {
-    handleAddTocart()
-    history.push(`/buynow/${product.id}`);
-  };
-
   // Function to filter similar products
   const getSimilarProducts = () => {};
 
@@ -56,20 +44,31 @@ const ProductDetails = () => {
   const differentProducts = getDifferentProducts();
 
   const handleAddTocart = () => {
-    const item = cart.find((item) => item?.product?.id === product?.id);
-
     const payload = {
-      product_id: product.id,
+      product: product,
       quantity: 1,
     };
-
-    try {
+     try {
       addToCart(payload);
     } catch (error) {
       console.error(error);
-      console.log(error);
+     
     }
   };
+
+  const handleBuyNowClick = () => {
+    const isProductInCart = cart.some((item) => item?.product?.id == product.id);
+    console.log(isProductInCart)
+    if (!isProductInCart) {
+      handleAddTocart();
+    }
+  
+    history.push(`/buynow/${product.id}`);
+  };
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -120,7 +119,7 @@ const ProductDetails = () => {
                     className="d-flex justify-content-center"
                     style={{ cursor: "pointer" }}
                   >
-                    {cart.some((item) => item?.product_id === product?.id) ? (
+                    {cart.some((item) => item?.product?.id === product?.id) ? (
                       <Button
                         variant="default"
                         onClick={() => {

@@ -29,13 +29,12 @@ const BuyNow = () => {
 
   const handleChange = (quantity, product) => (event) => {
     const selectedQuantity = parseInt(event.target.value, 10);
-    setPrice(product.unit_price)
+
     if (quantity === selectedQuantity) {
       return;
     }
     try {
       updateItemInCart(product, selectedQuantity);
-      setQuantity(selectedQuantity)
     } catch (err) {
       console.error(err);
     }
@@ -44,6 +43,11 @@ const BuyNow = () => {
   useEffect(()=>{
     setGrandTotal(quantity * price)
   },[quantity, price])
+
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -91,7 +95,7 @@ const BuyNow = () => {
                               type="button"
                               variant="light"
                               onClick={() => {
-                                removeItemFromCart(item?.id);
+                                removeItemFromCart(item?.product?.id);
                               } }
                             >
                               <AiFillDelete fontSize="20px" />

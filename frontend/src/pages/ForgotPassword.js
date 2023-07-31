@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reset_password } from '../store/actions/auth';
 
 const ForgotPassword = ({ reset_password }) => {
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
+
   const [requestSent, setRequestSent] = useState(false);
   const [formData, setFormData] = useState({
     email: ''

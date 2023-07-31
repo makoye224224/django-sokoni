@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reset_password_confirm } from '../store/actions/auth';
 
 const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
+    useEffect(() => {
+        // Scroll to the top of the page after the route change
+        window.scrollTo(0, 0);
+      }, []);
+
     const [requestSent, setRequestSent] = useState(false);
     const [formData, setFormData] = useState({
         new_password: '',

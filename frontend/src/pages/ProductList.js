@@ -14,6 +14,11 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useStateContext } from "../context/Context";
 
 const ProductList = () => {
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
+  
   const {
     products,
     searchQuery,

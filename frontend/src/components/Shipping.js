@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useStateContext } from "../context/Context";
 import { FaPlus, FaTimes } from "react-icons/fa";
@@ -43,6 +43,11 @@ const Shipping = () => {
     setInstructionForm(!instructionForm);
     setDeliveryInstructions("");
   };
+
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

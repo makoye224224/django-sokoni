@@ -11,6 +11,11 @@ import ProductForm from '../ProductForm';
 import axios from 'axios';
 
 const Home = () => {
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
+  
   return(
     <div>hello world</div>
   )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signup } from '../store/actions/auth';
@@ -7,6 +7,11 @@ import axios from 'axios';
 const api_uri = process.env.REACT_APP_API_URL;
 
 const Register = ({ signup, isAuthenticated, signupError }) => {
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
+
   const[passwordMatch, setPasswordMatch] = useState(true)
   const [accountCreated, setAccountCreated] = useState(false);
   const [formData, setFormData] = useState({

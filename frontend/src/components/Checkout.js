@@ -43,6 +43,10 @@ const Checkout = (props) => {
       console.error("Error placing order:", error);
     }
   };
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { verify } from '../store/actions/auth'
 
 const Activate = ({ verify, match }) => {
+    useEffect(() => {
+        // Scroll to the top of the page after the route change
+        window.scrollTo(0, 0);
+      }, []);
     const [verified, setVerified] = useState(false);
 
     const verify_account = e => {
@@ -17,6 +21,8 @@ const Activate = ({ verify, match }) => {
     if (verified) {
         return <Redirect to='/' />
     }
+
+   
 
     return (
         <div className='container'>

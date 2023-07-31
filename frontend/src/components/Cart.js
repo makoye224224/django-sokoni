@@ -31,6 +31,11 @@ const Cart = () => {
     return total + item?.product?.unit_price * item?.quantity;
   }, 0);
 
+  useEffect(() => {
+    // Scroll to the top of the page after the route change
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       {cart?.length === 0 ? (

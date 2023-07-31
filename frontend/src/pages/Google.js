@@ -6,6 +6,12 @@ import queryString from 'query-string';
 const api_uri = process.env.REACT_APP_API_URL;
 
 const Google = ({ googleAuthenticate }) => {
+
+    useEffect(() => {
+        // Scroll to the top of the page after the route change
+        window.scrollTo(0, 0);
+      }, []);
+      
     let location = useLocation();
 
     useEffect(() => {
