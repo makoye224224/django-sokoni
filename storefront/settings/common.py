@@ -232,8 +232,8 @@ EMAIL_USE_SSL = False
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-AWS_STORAGE_BUCKET_NAME = "nzinza"
-AWS_S3_REGION_NAME = "us-east-2"
-AWS_ACCESS_KEY_ID = "AKIA54XGGLWJ5YNTPOWK"
-AWS_SECRET_ACCESS_KEY = "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"
-CDN_URL = "https://d3ski4a8qseigv.cloudfront.net"
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME")
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY ")
+CDN_URL = os.environ.get("CDN_URL")
