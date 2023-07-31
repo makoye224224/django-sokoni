@@ -13,8 +13,6 @@ from .models import (
     ProductImage,
     Review,
 )
-from PIL import Image
-import io
 
 
 class CollectionSerializer(serializers.ModelSerializer):
@@ -33,26 +31,18 @@ class ProductImageSerializer(serializers.ModelSerializer):
         model = ProductImage
         fields = ["id", "image"]
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        cdn_url = settings.CDN_URL
+        if cdn_url and representation["image"]:
+            # Remove the S3 bucket URL part from the image URL and then append the CDN prefix
+            s3_bucket_url = "https://nzinza.s3.amazonaws.com/"
+            image_url = representation["image"].replace(s3_bucket_url, "")
+            representation["image"] = f"{cdn_url}/{image_url}"
+        return representation
+
     def create(self, validated_data):
         product_id = self.context["product_id"]
-        image = validated_data.get("image")
-
-        # Check if an image is provided and resize it
-        if image:
-            # Resize the image to the desired size (e.g., 300x300)
-            size = (300, 300)
-            img = Image.open(image)
-            img.thumbnail(size, Image.ANTIALIAS)
-
-            # Convert the resized image to bytes
-            image_bytes = io.BytesIO()
-            img.save(image_bytes, format="JPEG")
-            image_bytes.seek(0)
-
-            # Set the image field in the validated data to the resized image bytes
-            validated_data["image"] = image_bytes
-
-        # Create the ProductImage instance with the resized image data
         return ProductImage.objects.create(product_id=product_id, **validated_data)
 
 
