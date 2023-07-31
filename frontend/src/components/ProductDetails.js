@@ -61,7 +61,6 @@ const ProductDetails = () => {
     const payload = {
       product_id: product.id,
       quantity: 1,
-      id: MyCart.id,
     };
 
     try {
@@ -121,7 +120,7 @@ const ProductDetails = () => {
                     className="d-flex justify-content-center"
                     style={{ cursor: "pointer" }}
                   >
-                    {cart.some((item) => item?.product?.id === product?.id) ? (
+                    {cart.some((item) => item?.product_id === product?.id) ? (
                       <Button
                         variant="default"
                         onClick={() => {
@@ -129,7 +128,7 @@ const ProductDetails = () => {
                             (item) => item?.product?.id === product?.id
                           );
                          
-                          removeItemFromCart(MyCart.id, item?.id);
+                          removeItemFromCart(product?.id);
                         }}
                         style={{
                           backgroundColor: "red",

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.conf import settings
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from uuid import uuid4
 
@@ -32,7 +32,9 @@ class Product(models.Model):
     unit_price = models.DecimalField(
         max_digits=6, decimal_places=2, validators=[MinValueValidator(1)]
     )
-    inventory = models.IntegerField(validators=[MinValueValidator(0)])
+    inventory = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(500)]
+    )
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(
         Collection, on_delete=models.PROTECT, related_name="products"

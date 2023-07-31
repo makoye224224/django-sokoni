@@ -35,20 +35,20 @@ const SingleProductList = ({ prod }) => {
   };
 
   const handleAddTocart = () => {
-    console.log(MyCart)
     const payload = {
-      product_id: prod.id,
+      product: prod,
       quantity: 1,
-      id: MyCart.id,
     };
-
-    try {
+   console.log('payload', payload)
+     try {
       addToCart(payload);
     } catch (error) {
       console.error(error);
       console.log(error);
     }
   };
+
+  console.log('cart', cart)
 
   return (
     <>
@@ -141,8 +141,7 @@ const SingleProductList = ({ prod }) => {
                         const item = cart.find(
                           (item) => item?.product?.id === prod?.id
                         );
-                        console.log("ccc..", item);
-                        removeItemFromCart(MyCart.id, item?.id);
+                        removeItemFromCart(prod?.id);
                       }}
                       style={{
                         backgroundColor: "red",

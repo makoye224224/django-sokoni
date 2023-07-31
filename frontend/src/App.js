@@ -53,7 +53,6 @@ function App() {
         <br />
         <div className="App">
           <Route exact path='/' component={ProductList} />
-          <Route path="/cart" component={Cart} />
           <Route path="/buynow/:productId" component={BuyNow} />
           <Route path="/details/:productId" component={ProductDetails} />
           <Route path="/checkout" component={Checkout} />
@@ -69,7 +68,7 @@ function App() {
           <Route exact path='/password/reset/confirm/:uid/:token' component={ResetPasswordConfirm} />
           <Route exact path='/activate/:uid/:token' component={Activate} />
           <Route exact path='/account_created' component={AccountCreated} />
-         
+          <Route path="/cart" component={Cart} />
         </div>
         {showGoToTop && (
           

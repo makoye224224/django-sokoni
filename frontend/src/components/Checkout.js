@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import Table from "react-bootstrap/Table";
@@ -7,15 +7,18 @@ import MobilePayment from "./MobilePayment";
 import PayPal from "./PayPal";
 import Shipping from "./Shipping";
 import { useStateContext } from "../context/Context";
-const Checkout = () => {
+const Checkout = (props) => {
   const dates = ["August 12 2023", "August 16 2023", "August 20 2023"];
   const [addressForm, setAddressForm] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("");
   const {
     cart,
-    MyCart,
-    
+    constructCartItem,
+    setCart,
+    PlaceOrder,
   } = useStateContext();
+
+  const grandTotal = props.location.state?.grandTotal || 0;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,6 +27,22 @@ const Checkout = () => {
     setAddressForm(false);
   };
 
+  const handlePlaceOrder = async () => {
+    try {
+      // First, construct the cart items using constructCartItem
+      await constructCartItem();
+
+      // Then proceed to place the order
+     // await PlaceOrder();
+
+      // Now, you can clear the cart or take other actions as needed
+      setCart([]); // Clear the cart
+      localStorage.removeItem('cartId')
+      // ... (Other actions if needed)
+    } catch (error) {
+      console.error("Error placing order:", error);
+    }
+  };
 
   return (
     <>
@@ -70,7 +89,7 @@ const Checkout = () => {
         </div>
         <div className="col-md-4 container mb-2">
           <p>
-            Your Total is $ <strong>{MyCart?.total_price}</strong>
+            Your Total is $ <strong>{grandTotal}</strong>
           </p>
 
           <hr />
@@ -106,7 +125,9 @@ const Checkout = () => {
             <MobilePayment />
           )}
         </div>
+       
       </div>
+
     </>
   );
 };

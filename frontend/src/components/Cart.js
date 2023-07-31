@@ -7,53 +7,55 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   const {
-    cart,
-    MyCart,
-    OneProduct,
-    addToCart,
-    fetchCart,
     updateItemInCart,
-    removeItemFromCart,
-  } = useStateContext();
-  const [total, setTotal] = useState(0);
 
-  const handleChange = (quantity, productId) => (event) => {
+    removeItemFromCart,
+
+    cart,
+  } = useStateContext();
+
+  const handleChange = (quantity, product) => (event) => {
     const selectedQuantity = parseInt(event.target.value, 10);
 
     if (quantity === selectedQuantity) {
       return;
     }
     try {
-      updateItemInCart(MyCart.id, productId, selectedQuantity);
+      updateItemInCart(product, selectedQuantity);
     } catch (err) {
       console.error(err);
     }
   };
+
+  const grandTotal = cart.reduce((total, item) => {
+    return total + item?.product?.unit_price * item?.quantity;
+  }, 0);
+
   return (
     <>
-      {cart.length === 0 ? (
+      {cart?.length === 0 ? (
         <>
           <hr />
 
-          
-            <div className="card-body">
-              <h6 className="container d-flex justify-content-center">
-                Please add items to cart before proceeding
-              </h6>
-              <br/>
-              <div className="text-center"> 
-              <a href="/"><h4>Go To Products</h4></a>
-              </div>
+          <div className="card-body">
+            <h6 className="container d-flex justify-content-center">
+              Please add items to cart before proceeding
+            </h6>
+            <br />
+            <div className="text-center">
+              <a href="/">
+                <h4>Go To Products</h4>
+              </a>
             </div>
-       
+          </div>
         </>
       ) : (
         <div className="home row">
           <div className="productContainer col-md-6 container">
-            <ListGroup>
-              {cart.map((item) => {
-                return (
-                  <ListGroup.Item key={item.id}>
+            {cart?.map((item) => {
+              return (
+                <ListGroup>
+                  <ListGroup.Item key={item?.product?.id}>
                     <Row>
                       <Col xs={4} md={2}>
                         <Image
@@ -67,14 +69,14 @@ const Cart = () => {
                         <span>
                           <p>{item?.product?.title}</p>
                         </span>
-                        <p> $ {item?.total_price}</p>
+                        <p> $ {item?.product?.unit_price * item?.quantity}</p>
                         <Rating rating={4} />
                       </Col>
                       <Col xs={8} md={4}>
                         <Form.Control
                           as="select"
                           value={item?.quantity}
-                          onChange={handleChange(item?.quantity, item?.id)}
+                          onChange={handleChange(item?.quantity, item?.product)}
                           style={{ width: "100px" }}
                         >
                           {[...Array(item?.product?.inventory).keys()].map(
@@ -89,7 +91,7 @@ const Cart = () => {
                           type="button"
                           variant="light"
                           onClick={() => {
-                            removeItemFromCart(MyCart.id, item?.id);
+                            removeItemFromCart(item?.product?.id);
                           }}
                         >
                           <AiFillDelete fontSize="20px" />
@@ -97,32 +99,28 @@ const Cart = () => {
                       </Col>
                     </Row>
                   </ListGroup.Item>
-                );
-              })}
-            </ListGroup>
+                </ListGroup>
+              );
+            })}
           </div>
           <div className="filters summary col-md-6 container">
-            <h3 className="title container">Subtotal ({cart.length}) items</h3>
+            <h3 className="title container">Subtotal ({cart?.length}) items</h3>
             <hr />
             <div
               style={{ fontWeight: 700, fontSize: 20 }}
               className="container"
             >
-              Total: $ {MyCart.total_price}
+              Total: $ {grandTotal}
             </div>
             <br />
             <div className="container">
               <Button
                 type="button"
-                disabled={cart.length === 0}
                 as={Link}
                 variant="default"
                 to={{
                   pathname: "/checkout",
-                  state: {
-                    total: total,
-                    from: "/checkout",
-                  },
+                  state: { grandTotal },
                 }}
                 style={{
                   backgroundColor: "#2dace4",

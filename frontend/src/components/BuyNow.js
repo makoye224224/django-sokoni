@@ -18,28 +18,32 @@ import { AiFillDelete } from "react-icons/ai";
 
 const BuyNow = () => {
   const { productId } = useParams();
+  const [price, setPrice] = useState(0)
+  const [grandTotal, setGrandTotal] = useState(1)
+  const [quantity, setQuantity] = useState(1)
   const {
     cart,
-    MyCart,
-    OneProduct,
-    addToCart,
-    fetchCart,
     updateItemInCart,
     removeItemFromCart,
   } = useStateContext();
 
-  const handleChange = (quantity, productId) => (event) => {
+  const handleChange = (quantity, product) => (event) => {
     const selectedQuantity = parseInt(event.target.value, 10);
-
+    setPrice(product.unit_price)
     if (quantity === selectedQuantity) {
       return;
     }
     try {
-      updateItemInCart(MyCart.id, productId, selectedQuantity);
+      updateItemInCart(product, selectedQuantity);
+      setQuantity(selectedQuantity)
     } catch (err) {
       console.error(err);
     }
   };
+
+  useEffect(()=>{
+    setGrandTotal(quantity * price)
+  },[quantity, price])
 
   return (
     <>
@@ -65,14 +69,14 @@ const BuyNow = () => {
                             <span>
                               <p>{item?.product?.title}</p>
                             </span>
-                            <p> $ {item?.total_price}</p>
+                            <p> $ {item?.quantity * item?.product?.unit_price}</p>
                             <Rating rating={4} />
                           </Col>
                           <Col xs={8} md={4}>
                             <Form.Control
                               as="select"
                               value={item?.quantity}
-                              onChange={handleChange(item?.quantity, item?.id)}
+                              onChange={handleChange(item?.quantity, item?.product)}
                               style={{ width: "100px" }}
                             >
                               {[...Array(item?.product?.inventory).keys()].map(
@@ -87,7 +91,7 @@ const BuyNow = () => {
                               type="button"
                               variant="light"
                               onClick={() => {
-                                removeItemFromCart(MyCart.id, item?.id);
+                                removeItemFromCart(item?.id);
                               } }
                             >
                               <AiFillDelete fontSize="20px" />
@@ -110,6 +114,7 @@ const BuyNow = () => {
                   variant="default"
                   to={{
                     pathname: "/checkout",
+                    state: {grandTotal}
                   }}
                   style={{
                     backgroundColor: "#2dace4",
