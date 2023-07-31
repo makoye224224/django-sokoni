@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.403c210d.css",
-    "main.js": "/static/js/main.cdbda6d1.js",
+    "main.js": "/static/js/main.38765cac.js",
     "static/media/sokoni.png": "/static/media/sokoni.b29bab49279615dc0476.png",
     "index.html": "/index.html",
     "main.403c210d.css.map": "/static/css/main.403c210d.css.map",
-    "main.cdbda6d1.js.map": "/static/js/main.cdbda6d1.js.map"
+    "main.38765cac.js.map": "/static/js/main.38765cac.js.map"
   },
   "entrypoints": [
     "static/css/main.403c210d.css",
-    "static/js/main.cdbda6d1.js"
+    "static/js/main.38765cac.js"
   ]
 }
