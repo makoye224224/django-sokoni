@@ -38,15 +38,12 @@ const ContextProvider = ({ children }) => {
       const createCartItem = async () => {
         try {
           const response = await axios.post(`${api_uri}/store/carts/`);
-          console.log("creating cart", response);
+       
           setCartId(response.data.id);
           // Convert the response.data.id to a string before storing it
           const stringifiedData = JSON.stringify(response.data.id);
           localStorage.setItem("cartId", stringifiedData);
-          console.log(
-            "Cart created and saved to local storage",
-            localStorage.getItem("cartId")
-          );
+        
         } catch (error) {
           console.error("Error in creating a shopping cart", error);
           console.log("error in creating a cart", error);
@@ -158,7 +155,6 @@ const ContextProvider = ({ children }) => {
   const removeItemFromCart = (itemId) => {
     // Filter out the item with the given itemId from the cart array
     const updatedCart = cart.filter((item) => item.product.id !== itemId);
-    console.log("updated cart", updatedCart);
     setCart(updatedCart);
   };
 

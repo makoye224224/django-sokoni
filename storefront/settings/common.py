@@ -66,7 +66,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["sokoni-django.onrender.com"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8001",

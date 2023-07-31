@@ -7,19 +7,10 @@ import Rating from "./Rating";
 const SingleProductList = ({ prod }) => {
   const history = useHistory();
   const {
-    products,
-    searchQuery,
-    setSearchQuery,
-    cartItem,
-    setCartItem,
-    fetchCart,
     cart,
     addToCart,
     removeItemFromCart,
-    MyCart,
   } = useStateContext();
-  const [cartData, setCartData] = useState([]);
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
 
   const handleBuyNowClick = () => {
     handleAddTocart()
@@ -39,7 +30,6 @@ const SingleProductList = ({ prod }) => {
       product: prod,
       quantity: 1,
     };
-   console.log('payload', payload)
      try {
       addToCart(payload);
     } catch (error) {
@@ -48,7 +38,6 @@ const SingleProductList = ({ prod }) => {
     }
   };
 
-  console.log('cart', cart)
 
   return (
     <>
