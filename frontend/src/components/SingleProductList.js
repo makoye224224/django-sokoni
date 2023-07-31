@@ -18,7 +18,7 @@ const SingleProductList = ({ prod }) => {
     if (!isProductInCart) {
       handleAddTocart();
     }
-  
+
     history.push(`/buynow/${prod.id}`);
   };
 
@@ -35,7 +35,7 @@ const SingleProductList = ({ prod }) => {
       product: prod,
       quantity: 1,
     };
-     try {
+    try {
       addToCart(payload);
     } catch (error) {
       console.error(error);
@@ -69,7 +69,7 @@ const SingleProductList = ({ prod }) => {
           >
             <div style={{ height: "250px", overflow: "hidden" }}>
               <img
-                src="https://shorturl.at/lpFJW"
+                src={prod?.images[0]?.image || 'https://d3ski4a8qseigv.cloudfront.net/sokoni'}
                 className="card-img-top"
                 alt="product photo"
                 loading="lazy"
@@ -116,11 +116,11 @@ const SingleProductList = ({ prod }) => {
                 </div>
               </section>
               <section>
-               
-                  <p className="container" style={{height: '45px', overflow: 'hidden'}}>
-                    {truncateString(prod && prod.description, 50)}
-                  </p>
-              
+
+                <p className="container" style={{ height: '45px', overflow: 'hidden' }}>
+                  {truncateString(prod && prod.description, 50)}
+                </p>
+
               </section>
             </a>
             <section>

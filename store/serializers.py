@@ -13,6 +13,8 @@ from .models import (
     ProductImage,
     Review,
 )
+from PIL import Image
+import io
 
 
 class CollectionSerializer(serializers.ModelSerializer):
@@ -23,14 +25,35 @@ class CollectionSerializer(serializers.ModelSerializer):
     products_count = serializers.IntegerField(read_only=True)
 
 
-class ProductImageSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
-        product_id = self.context["product_id"]
-        return ProductImage.objects.create(product_id=product_id, **validated_data)
+from django.conf import settings
 
+
+class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
         fields = ["id", "image"]
+
+    def create(self, validated_data):
+        product_id = self.context["product_id"]
+        image = validated_data.get("image")
+
+        # Check if an image is provided and resize it
+        if image:
+            # Resize the image to the desired size (e.g., 300x300)
+            size = (300, 300)
+            img = Image.open(image)
+            img.thumbnail(size, Image.ANTIALIAS)
+
+            # Convert the resized image to bytes
+            image_bytes = io.BytesIO()
+            img.save(image_bytes, format="JPEG")
+            image_bytes.seek(0)
+
+            # Set the image field in the validated data to the resized image bytes
+            validated_data["image"] = image_bytes
+
+        # Create the ProductImage instance with the resized image data
+        return ProductImage.objects.create(product_id=product_id, **validated_data)
 
 
 class ProductSerializer(serializers.ModelSerializer):

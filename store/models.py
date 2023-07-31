@@ -3,8 +3,21 @@ from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from uuid import uuid4
-
+from django.utils.deconstruct import deconstructible
+import os
+import uuid
 from store.validators import validate_file_size
+
+
+@deconstructible
+class UniqueFilename(object):
+    def __init__(self, path):
+        self.path = path
+
+    def __call__(self, instance, filename):
+        # Generate a random unique identifier to append to the filename
+        ext = os.path.splitext(filename)[1]
+        return os.path.join(self.path, f"{uuid.uuid4().hex}{ext}")
 
 
 class Promotion(models.Model):
@@ -52,7 +65,9 @@ class ProductImage(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="images"
     )
-    image = models.ImageField(upload_to="store/images", validators=[validate_file_size])
+    image = models.ImageField(
+        upload_to=UniqueFilename("store/images"), validators=[validate_file_size]
+    )
 
 
 class Customer(models.Model):

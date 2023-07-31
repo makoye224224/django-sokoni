@@ -54,6 +54,8 @@ from .serializers import (
     UpdateOrderSerializer,
 )
 
+from django.conf import settings
+
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.prefetch_related("images").all()
@@ -215,7 +217,11 @@ class ProductImageViewSet(ModelViewSet):
     serializer_class = ProductImageSerializer
 
     def get_serializer_context(self):
-        return {"product_id": self.kwargs["product_pk"]}
+        # Include CDN_URL in the serializer context to build full image URLs with the CDN prefix
+        return {
+            "product_id": self.kwargs["product_pk"],
+            "cdn_url": settings.CDN_URL,
+        }
 
     def get_queryset(self):
         return ProductImage.objects.filter(product_id=self.kwargs["product_pk"])

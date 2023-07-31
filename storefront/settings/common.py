@@ -14,6 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 from urllib.parse import unquote_plus
 import dj_database_url
+from storages.backends.s3boto3 import S3Boto3Storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -66,7 +67,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-ALLOWED_HOSTS = ["sokoni-django.onrender.com"]
+ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8001",
@@ -228,3 +229,11 @@ DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
 DEFAULT_FROM_EMAIL = "familysokoni@gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+AWS_STORAGE_BUCKET_NAME = "nzinza"
+AWS_S3_REGION_NAME = "us-east-2"
+AWS_ACCESS_KEY_ID = "AKIA54XGGLWJ5YNTPOWK"
+AWS_SECRET_ACCESS_KEY = "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"
+CDN_URL = "https://d3ski4a8qseigv.cloudfront.net"
