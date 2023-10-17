@@ -97,7 +97,7 @@ export default function Header() {
 
   const set = [
     { name: "Login", link: "/login" },
-    { name: "register", link: "/signup" },
+    { name: "register", link: "/register" },
   ];
 
   const [anchorElNav, setAnchorElNav] = useState(null);
